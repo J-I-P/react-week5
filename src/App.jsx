@@ -14,6 +14,7 @@ function App() {
   const [cart, setCart] = useState({});
 
   const [isScreenLoading, setIsScreenLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getCart = async () => {
     try {
@@ -64,7 +65,7 @@ function App() {
   const [qtySelect, setQtySelect] = useState(1);
 
   const addCartItem = async(product_id, qty) => {
-    setIsScreenLoading(true);
+    setIsLoading(true);
     try {
       await axios.post(`${BASE_URL}/v2/api/${API_PATH}/cart`, {
         data: {
@@ -77,7 +78,7 @@ function App() {
     } catch (error) {
       alert("加入購物車失敗")
     } finally {
-      setIsScreenLoading(false);
+      setIsLoading(false);
     }
   }
 
@@ -199,9 +200,25 @@ function App() {
                     >
                       查看更多
                     </button>
-                    <button onClick={() => addCartItem(product.id, 1)} type="button" className="btn btn-outline-danger">
+
+                    <button
+                      disabled={isLoading}
+                      onClick={() => addCartItem(tempProduct.id, 1)}
+                      type="button"
+                      className="btn btn-outline-danger d-flex align-items-center gap-2"
+                    >
                       加到購物車
-                    </button>
+                      {isLoading && (
+                        <ReactLoading
+                          type={"spin"}
+                          color={"#000"}
+                          height={"1.5rem"}
+                          width={"1.5rem"}
+                        />
+                      )}
+                      
+                    </button> 
+                    
                   </div>
                 </td>
               </tr>
@@ -259,8 +276,21 @@ function App() {
                 </div>
               </div>
               <div className="modal-footer">
-                <button onClick={() => addCartItem(tempProduct.id, qtySelect)} type="button" className="btn btn-primary">
+                <button
+                  disabled={isLoading}
+                  onClick={() => addCartItem(tempProduct.id, qtySelect)}
+                  type="button"
+                  className="btn btn-primary d-flex align-items-center gap-2"
+                >
                   加入購物車
+                  {isLoading && (
+                    <ReactLoading
+                      type={"spin"}
+                      color={"#000"}
+                      height={"1.5rem"}
+                      width={"1.5rem"}
+                    />
+                  )}
                 </button>
               </div>
             </div>
