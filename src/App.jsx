@@ -203,7 +203,7 @@ function App() {
 
                     <button
                       disabled={isLoading}
-                      onClick={() => addCartItem(tempProduct.id, 1)}
+                      onClick={() => addCartItem(product.id, 1)}
                       type="button"
                       className="btn btn-outline-danger d-flex align-items-center gap-2"
                     >
