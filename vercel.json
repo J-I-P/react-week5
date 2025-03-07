@@ -3,13 +3,16 @@
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/static-build"
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
     }
   ],
   "routes": [
     {
       "src": "/react-week5/(.*)",
-      "dest": "/dist/$1"
+      "dest": "/react-week5/$1"
     }
   ]
 }
